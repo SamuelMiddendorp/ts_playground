@@ -79,13 +79,13 @@ function compareHigherLower(left: number | undefined, right: number | undefined)
     }
 }
 
-enum HigherLowerComparisonResult {
+const enum HigherLowerComparisonResult {
     Higher,
     Lower,
     Correct
 }
 
-enum BinaryComparisonResult {
+const enum BinaryComparisonResult {
     Correct,
     Incorrect,
 }
@@ -100,7 +100,7 @@ interface ComparisonResult {
 interface ComparisonNode<T> {
     comparable: boolean;
     correct: boolean;
-    result: undefined | T
+    result: T
 }
 
 interface BinaryComparisonNode extends ComparisonNode<BinaryComparisonResult> {
