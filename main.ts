@@ -1,12 +1,16 @@
 
-let left = { age: 20, level: undefined, race: "spartan" };
-let right = { age: 20, level: undefined, race: "spartan" };
+let one = { age: 20, level: undefined, race: "spartan" };
+let two = { age: 20, level: 20, race: "spartan" };
+let three = { age: 20, level: 40, race: "spartan" };
 
-let res = compare(left, right);
+let res = compare(one, three);
+let res2 = compare(one, two);
+let res3 = compare(two, one);
+
 
 console.log(res);
-
-
+console.log(res2);
+console.log(res3);
 
 function compare(left: entity, right: entity): ComparisonResult {
     let res = {
@@ -26,15 +30,23 @@ function compare(left: entity, right: entity): ComparisonResult {
 function compareBinary(left: string | undefined, right: string | undefined): BinaryComparisonNode {
     if (left == right) {
         return {
-            comparable: true,
+            comparable: !left ? false : true,
             result: BinaryComparisonResult.Correct, 
             correct: true
         }
     }
 
-    if (!left || !right) {
+    if (!left) {
         return {
             comparable: false,
+            correct: false,
+            result: undefined
+        }
+    }
+
+    if (!right) {
+        return {
+            comparable: true,
             correct: false,
             result: undefined
         }
@@ -50,15 +62,23 @@ function compareBinary(left: string | undefined, right: string | undefined): Bin
 function compareHigherLower(left: number | undefined, right: number | undefined): HigherLowerComparisonNode {
     if (left == right) {
         return {
-            comparable: true,
+            comparable: !left ? false : true,
             correct: true,
             result: HigherLowerComparisonResult.Correct
         }
     }
 
-    if (!left || !right) {
+    if (!left) {
         return {
             comparable: false,
+            correct: false,
+            result: undefined
+        }
+    }
+
+    if (!right) {
+        return {
+            comparable: true,
             correct: false,
             result: undefined
         }
@@ -100,7 +120,7 @@ interface ComparisonResult {
 interface ComparisonNode<T> {
     comparable: boolean;
     correct: boolean;
-    result: T
+    result: undefined | T
 }
 
 interface BinaryComparisonNode extends ComparisonNode<BinaryComparisonResult> {
